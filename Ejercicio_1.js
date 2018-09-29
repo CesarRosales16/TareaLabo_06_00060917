@@ -23,6 +23,12 @@ function menu() {
             case '3':
             registrarVenta();
             break;
+            case '4':
+            promedioVentas();
+            break;
+            case '5':
+            productosAgotados();
+            break;
         }
     }
 }
@@ -52,19 +58,13 @@ var agregarProducto = function () {
 var modificarStock = function () {    
     if(productos.length!=0) {
         let codigo = prompt("--MODIFICAR STOCK--\nIngrese el código del producto a modificar el stock: ");
-        console.log(codigo);
         productos.forEach(element => {
-            console.log("entra al for");
-            console.log(element.Codigo);
             if(element.Codigo==codigo) {
-                console.log("entra al if");
                 let stock = Number(prompt("--MODIFICAR STOCK--\nIngrese la nueva cantidad del producto: "));
                 element.Stock = stock;
                 console.log("Stock del producto modificado correctamente");
             }
-            console.log("sale del if");
         });
-        console.log("sale del for");
     }
     else {
         console.log("No hay productos registrados");
@@ -88,6 +88,32 @@ var registrarVenta = function () {
     }
     else {
         console.log("No hay productos registrados");
+    }
+}
+
+var promedioVentas = function(){
+    let sum = 0;
+    ventas.forEach(element => {
+        sum+=((element.PrecioUnitario)*(element.Cantidad));
+    });
+    if(productos.length==0){
+        console.log("El promedio de ventas es: 0");
+    }
+    else {
+        console.log(sum/productos.length);
+    }
+}
+
+var productosAgotados = function () {
+    let cont=0;
+    productos.forEach(element => {
+        if(element.Stock==0) {
+            console.log(element);
+            cont++;
+        }
+    });
+    if(cont==0) {
+        console.log("No hay productos con stock 0");
     }
 }
 var iniciarPrograma = function() {

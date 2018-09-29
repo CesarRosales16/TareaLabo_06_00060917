@@ -6,10 +6,10 @@ class Conversiones {
         return num / 100;
     }
     km_m(num) {
-        return num / 1000;
+        return num * 1000;
     }
     m_km(num) {
-        return num * 1000;
+        return num / 1000;
     }
     p_m(num) {
         return num * 0.3048;

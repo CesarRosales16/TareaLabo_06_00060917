@@ -4,62 +4,71 @@ function menu() {
     let opcion = 0;
     while (opcion != 6) {
         opcion = prompt("\n----- MENU -----\n"
-        + "1. Agregar producto\n"
-        + "2. Modificar Stock\n"
-        + "3. Registrar venta y reducir stock\n"
-        + "4. Mostrar promedio de ventas realizadas\n"
-        + "5. Mostrar productos con stock 0\n"
-        + "6. Salir del sistema\n"
-        + "¿Qué opcion desea? ");
+            + "1. Agregar producto\n"
+            + "2. Modificar Stock\n"
+            + "3. Registrar venta y reducir stock\n"
+            + "4. Mostrar promedio de ventas realizadas\n"
+            + "5. Mostrar productos con stock 0\n"
+            + "6. Salir del sistema\n"
+            + "¿Qué opcion desea? ");
         console.log(opcion);
-        switch(opcion) {
+        switch (opcion) {
             case '1':
-            agregarProducto();
-            console.log("Producto agregado exitosamente");
-            break;
+                agregarProducto();
+                break;
             case '2':
-            modificarStock();            
-            break;
+                modificarStock();
+                break;
             case '3':
-            registrarVenta();
-            break;
+                registrarVenta();
+                break;
             case '4':
-            promedioVentas();
-            break;
+                promedioVentas();
+                break;
             case '5':
-            productosAgotados();
-            break;
+                productosAgotados();
+                break;
         }
     }
 }
 
-var crearProducto = function (codigo,descripcion,tipo,precioCompra,precioVenta,stock) {
+var crearProducto = function (codigo, descripcion, tipo, precioCompra, precioVenta, stock) {
     return {
-        Codigo:codigo,
-        Descripcion:descripcion,
-        Tipo:tipo,
-        PrecioCompra:precioCompra,
-        PrecioVenta:precioVenta,
-        Stock:stock,
+        Codigo: codigo,
+        Descripcion: descripcion,
+        Tipo: tipo,
+        PrecioCompra: precioCompra,
+        PrecioVenta: precioVenta,
+        Stock: stock,
     }
 }
 
 var agregarProducto = function () {
+    let found = false;
     let codigo = prompt("--AGREGAR PRODUCTO--\nIngrese el código del producto: ");
-    let descripcion = prompt("--AGREGAR PRODUCTO--\nIngrese la descripción del producto: ");
-    let tipo = prompt("--AGREGAR PRODUCTO--\nIngrese el tipo del producto: ");
-    let precioCompra = Number(prompt("--AGREGAR PRODUCTO--\nIngrese el precio de compra del producto: "));
-    let precioVenta = Number(prompt("--AGREGAR PRODUCTO--\nIngrese el precio de venta del producto: "));
-    let stock = Number(prompt("--AGREGAR PRODUCTO--\nIngrese la cantidad del producto: "));
-    let producto = crearProducto(codigo,descripcion,tipo,precioCompra,precioVenta,stock);
-    productos.push(producto);
+    productos.forEach(element => {
+        if (element.Codigo == codigo) {
+            console.log("Ya existe un producto con codigo: " + codigo);
+            found = true;
+        }
+    });
+    if (found == false) {
+        let descripcion = prompt("--AGREGAR PRODUCTO--\nIngrese la descripción del producto: ");
+        let tipo = prompt("--AGREGAR PRODUCTO--\nIngrese el tipo del producto: ");
+        let precioCompra = Number(prompt("--AGREGAR PRODUCTO--\nIngrese el precio de compra del producto: "));
+        let precioVenta = Number(prompt("--AGREGAR PRODUCTO--\nIngrese el precio de venta del producto: "));
+        let stock = Number(prompt("--AGREGAR PRODUCTO--\nIngrese la cantidad del producto: "));
+        let producto = crearProducto(codigo, descripcion, tipo, precioCompra, precioVenta, stock);
+        productos.push(producto);
+        console.log("Producto agregado exitosamente");
+    }
 }
 
-var modificarStock = function () {    
-    if(productos.length!=0) {
+var modificarStock = function () {
+    if (productos.length != 0) {
         let codigo = prompt("--MODIFICAR STOCK--\nIngrese el código del producto a modificar el stock: ");
         productos.forEach(element => {
-            if(element.Codigo==codigo) {
+            if (element.Codigo == codigo) {
                 let stock = Number(prompt("--MODIFICAR STOCK--\nIngrese la nueva cantidad del producto: "));
                 element.Stock = stock;
                 console.log("Stock del producto modificado correctamente");
@@ -72,16 +81,16 @@ var modificarStock = function () {
 }
 
 var registrarVenta = function () {
-    if(productos.length!=0) {
+    if (productos.length != 0) {
         let codigo = prompt("--REGISTRAR VENTA--\nIngrese el código del producto vendido: ");
         productos.forEach(element => {
-            if(element.Codigo==codigo) {
-                let cantidad = prompt("--REGISTRAR VENTA--\nIngrese la cantidad de producto vendido: ");
-                if(cantidad>element.Stock) {
-                    console.log("Solo se pudieron vender "+element.Stock +" elementos porque no hay mas en stock");
+            if (element.Codigo == codigo) {
+                let cantidad = Number(prompt("--REGISTRAR VENTA--\nIngrese la cantidad de producto vendido: "));
+                if (cantidad > element.Stock) {
+                    console.log("Solo se pudieron vender " + element.Stock + " elementos porque no hay mas en stock");
                     cantidad = element.Stock;
                 }
-                ventas.push({Codigo:codigo,Cantidad:cantidad,PrecioUnitario:element.PrecioVenta});
+                ventas.push({ Codigo: codigo, Cantidad: cantidad, PrecioUnitario: element.PrecioVenta });
                 element.Stock = element.Stock - cantidad;
             }
         });
@@ -91,32 +100,32 @@ var registrarVenta = function () {
     }
 }
 
-var promedioVentas = function(){
+var promedioVentas = function () {
     let sum = 0;
     ventas.forEach(element => {
-        sum+=((element.PrecioUnitario)*(element.Cantidad));
+        sum += ((element.PrecioUnitario) * (element.Cantidad));
     });
-    if(productos.length==0){
+    if (ventas.length == 0) {
         console.log("El promedio de ventas es: 0");
     }
     else {
-        console.log(sum/productos.length);
+        console.log("El promedio de ventas es: " + (sum / ventas.length));
     }
 }
 
 var productosAgotados = function () {
-    let cont=0;
+    let cont = 0;
     productos.forEach(element => {
-        if(element.Stock==0) {
+        if (element.Stock == 0) {
             console.log(element);
             cont++;
         }
     });
-    if(cont==0) {
+    if (cont == 0) {
         console.log("No hay productos con stock 0");
     }
 }
-var iniciarPrograma = function() {
+var iniciarPrograma = function () {
     menu();
     console.log(productos);
     console.log(ventas);

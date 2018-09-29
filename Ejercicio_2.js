@@ -39,42 +39,42 @@ class Conversiones {
         switch (tipo) {
             case 'L':
                 if (unidadEntrada.toLowerCase() == "m" && unidadSalida.toLowerCase() == "cm") {
-                    console.log(m_cm(medida) + "cm");
+                    console.log(this.m_cm(medida) + "cm");
                 }
                 if (unidadEntrada.toLowerCase() == "cm" && unidadSalida.toLowerCase() == "m") {
-                    console.log(cm_m(medida) + "m");
+                    console.log(this.cm_m(medida) + "m");
                 }
                 if (unidadEntrada.toLowerCase() == "km" && unidadSalida.toLowerCase() == "m") {
-                    console.log(km_m(medida) + "m");
+                    console.log(this.km_m(medida) + "m");
                 }
                 if (unidadEntrada.toLowerCase() == "m" && unidadSalida.toLowerCase() == "km") {
-                    console.log(m_km(medida) + "km");
+                    console.log(this.m_km(medida) + "km");
                 }
                 if (unidadEntrada.toLowerCase() == "p" && unidadSalida.toLowerCase() == "m") {
-                    console.log(p_m(medida) + "m");
+                    console.log(this.p_m(medida) + "m");
                 }
                 if (unidadEntrada.toLowerCase() == "m" && unidadSalida.toLowerCase() == "p") {
-                    console.log(m_p(medida) + "p");
+                    console.log(this.m_p(medida) + "p");
                 }
                 break;
             case 'T':
                 if (unidadEntrada.toUpperCase() == "C" && unidadSalida.toUpperCase() == "F") {
-                    console.log(c_f(medida) + "F");
+                    console.log(this.c_f(medida) + "F");
                 }
                 if (unidadEntrada.toUpperCase() == "F" && unidadSalida.toUpperCase() == "C") {
-                    console.log(f_c(medida) + "C");
+                    console.log(this.f_c(medida) + "C");
                 }
                 if (unidadEntrada.toUpperCase() == "K" && unidadSalida.toUpperCase() == "F") {
-                    console.log(k_f(medida) + "F");
+                    console.log(this.k_f(medida) + "F");
                 }
                 if (unidadEntrada.toUpperCase() == "F" && unidadSalida.toUpperCase() == "K") {
-                    console.log(f_k(medida) + "K");
+                    console.log(this.f_k(medida) + "K");
                 }
                 if (unidadEntrada.toUpperCase() == "K" && unidadSalida.toUpperCase() == "C") {
-                    console.log(k_c(medida) + "C");
+                    console.log(this.k_c(medida) + "C");
                 }
                 if (unidadEntrada.toUpperCase() == "C" && unidadSalida.toUpperCase() == "K") {
-                    console.log(c_k(medida) + "K");
+                    console.log(this.c_k(medida) + "K");
                 }
                 break;
             default:
